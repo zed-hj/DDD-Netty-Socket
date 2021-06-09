@@ -1,12 +1,13 @@
 package com.zed.infrastructure;
 
-import com.zed.infrastructure.handler.ServerHandler;
-import com.zed.infrastructure.handler.TimeServerHandler;
-import com.zed.infrastructure.handler.serialization.TimeEncoderHandler;
+import com.zed.infrastructure.handler.WebSocketHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
+import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.HttpServerCodec;
+import io.netty.handler.stream.ChunkedWriteHandler;
 
 public class SeverChannelInitializer extends ChannelInitializer<Channel> {
 
@@ -29,8 +30,23 @@ public class SeverChannelInitializer extends ChannelInitializer<Channel> {
 
 
     private void addSocketHandles(ChannelPipeline pipeline) {
-        pipeline.addLast(new TimeEncoderHandler());
-        pipeline.addLast(new TimeServerHandler());
+        /**
+         * start解析GET和POST的URL和RequestBody 参数的
+         */
+        pipeline.addLast("http-codec", new HttpServerCodec());
+        pipeline.addLast("aggregator", new HttpObjectAggregator(65536));
+        /**
+         * end解析GET和POST的URL和RequestBody 参数的
+         */
+        /**
+         * 来解决大文件或者码流传输过程中可能发生的内存溢出问题。
+         */
+        pipeline.addLast("http-chunked", new ChunkedWriteHandler());
+        pipeline.addLast("handler", new WebSocketHandler());
+
+
+//        pipeline.addLast(new TimeEncoderHandler());
+//        pipeline.addLast(new TimeServerHandler());
 //        pipeline.addLast(new ServerHandler());
 
     }
