@@ -1,4 +1,4 @@
-package com.zed.infrastructure.handler;
+package com.zed.domain.aggregate.handler;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

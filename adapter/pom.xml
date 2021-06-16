@@ -14,8 +14,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.zed.infrastructure</groupId>
-            <artifactId>infrastructure</artifactId>
+            <groupId>com.zed.application</groupId>
+            <artifactId>application</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,9 +1,8 @@
-package com.zed.infrastructure.handler;
+package com.zed.domain.aggregate.handler;
 
 import cn.hutool.http.HttpStatus;
+import com.zed.domain.config.SocketConfig;
 import com.zed.domain.repository.NamespaceRepository;
-import com.zed.infrastructure.persistence.dao.NamespaceRepositoryImpl;
-import com.zed.infrastructure.persistence.dos.ClientChannelDO;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
@@ -27,20 +26,15 @@ public class WebSocketHandler extends ChannelInboundHandlerAdapter {
      */
     private static boolean IS_SSL = false;
 
-    private WebSocketServerHandshaker handshaker;
+    private SocketConfig socketConfig;
 
-    /**
-     * 抽象成接口支持集群模式的存储
-     */
     private NamespaceRepository namespaceRepository;
 
+    private WebSocketServerHandshaker handshaker;
 
-    public WebSocketHandler() {
-        this(new NamespaceRepositoryImpl());
-    }
-
-    public WebSocketHandler(NamespaceRepository namespaceRepository) {
-        this.namespaceRepository = namespaceRepository;
+    public WebSocketHandler(SocketConfig socketConfig) {
+        this.socketConfig = socketConfig;
+        this.namespaceRepository = this.socketConfig.getNamespaceRepository(Thread.currentThread().getContextClassLoader());
     }
 
     /**
@@ -129,7 +123,7 @@ public class WebSocketHandler extends ChannelInboundHandlerAdapter {
         TextWebSocketFrame tws = new TextWebSocketFrame(new Date().toString() + ctx.channel().id() + "=====>>>>" + request);
 
         //群发，服务端向每个连接上来的客户端群发消息
-        ClientChannelDO.getInstance().sendToAll(tws);
+//        ClientChannelDO.getInstance().sendToAll(tws);
 
     }
 
@@ -203,9 +197,6 @@ public class WebSocketHandler extends ChannelInboundHandlerAdapter {
 //                        handshake(ctx, client.getSessionId(), path, req);
                     }
                 } finally {
-                    /**
-                     * SimpleChannelInboundHandler 因为继承了这个会自动去释放，所以不用去管理
-                     */
                     req.release();
                 }
             } else {

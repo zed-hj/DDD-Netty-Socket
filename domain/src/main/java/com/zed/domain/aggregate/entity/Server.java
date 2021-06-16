@@ -1,6 +1,7 @@
-package com.zed.infrastructure;
+package com.zed.domain.aggregate.entity;
 
-import com.zed.infrastructure.config.SocketConfig;
+import com.zed.domain.config.SeverChannelInitializerConfig;
+import com.zed.domain.config.SocketConfig;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -9,20 +10,19 @@ import io.netty.channel.FixedRecvByteBufAllocator;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
+/**
+ * @author zed
+ */
 public class Server {
 
-    private final int port;
-
-    private SocketConfig socketConfig = new SocketConfig();
+    private SocketConfig socketConfig;
 
     private EventLoopGroup bossGroup;
 
     private EventLoopGroup workerGroup;
 
-    private SeverChannelInitializer severChannelInitializer = new SeverChannelInitializer();
-
-    public Server(int port) {
-        this.port = port;
+    public Server(SocketConfig socketConfig) {
+        this.socketConfig = socketConfig;
     }
 
     protected void initGroups() {
@@ -43,10 +43,10 @@ public class Server {
 
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    .childHandler(severChannelInitializer);
+                    .childHandler(new SeverChannelInitializerConfig(this.socketConfig));
             applyConnectionOptions(b);
 
-            ChannelFuture f = b.bind(port).sync();
+            ChannelFuture f = b.bind(socketConfig.getPort()).sync();
 
             f.channel().closeFuture().sync();
         } finally {
@@ -112,10 +112,6 @@ public class Server {
          * 服务端将不能处理的客户端连接请求放在队列中等待处理，backlog参数指定了队列的大小
          */
         bootstrap.option(ChannelOption.SO_BACKLOG, socketConfig.getAcceptBackLog());
-    }
-
-    public static void main(String[] args) throws Exception {
-        new Server(7000).run();
     }
 
 }

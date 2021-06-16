@@ -1,7 +1,5 @@
-package com.zed.infrastructure;
+package com.zed.domain.aggregate.entity;
 
-import com.zed.infrastructure.handler.TimeClientHandler;
-import com.zed.infrastructure.handler.serialization.TimeDecoderHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -37,7 +35,7 @@ public class Client {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
 //                            ch.pipeline().addLast(new ClientHandler());
-                            ch.pipeline().addLast(new TimeDecoderHandler(), new TimeClientHandler());
+//                            ch.pipeline().addLast(new TimeDecoderHandler(), new TimeClientHandler());
                         }
                     });
 

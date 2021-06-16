@@ -11,6 +11,7 @@ import io.netty.channel.Channel;
  */
 public class NamespaceRepositoryImpl implements NamespaceRepository {
 
+
     @Override
     public void saveTenant(String namespaceId, String tenantId, Channel channel) {
         Tenant tenant = NamespaceFactory.createTenant(namespaceId, tenantId, channel);
@@ -22,4 +23,6 @@ public class NamespaceRepositoryImpl implements NamespaceRepository {
     public void quitNamespace(Channel channel) {
 
     }
+
+
 }
