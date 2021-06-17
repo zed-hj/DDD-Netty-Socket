@@ -21,6 +21,7 @@ public class NamespacesApplicationService {
     private NamespaceRepository namespaceRepository;
 
     public void getNamespaces(String name) {
+        namespaceRepository.getNamespaces(name);
     }
 
 }

@@ -8,6 +8,7 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiConsumer;
 
 /**
  * 用于保存客户端的通道
@@ -30,7 +31,16 @@ public class ClientChannelDO {
                 channels.add(channel1);
             }
         }
+    }
 
+    public Set<Channel> get(String key) {
+        return clients.get(key);
+    }
+
+    public Set<String> forEach(BiConsumer<String, Set<Channel>> action) {
+        clients.forEach((K, V) -> {
+            action.accept(K, V);
+        });
     }
 
     public static ClientChannelDO getInstance() {
