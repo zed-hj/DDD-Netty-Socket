@@ -1,10 +1,14 @@
 package com.zed.infrastructure.persistence.dao;
 
+import com.zed.domain.aggregate.Namespace;
 import com.zed.domain.aggregate.entity.Tenant;
 import com.zed.domain.factory.NamespaceFactory;
 import com.zed.domain.repository.NamespaceRepository;
 import com.zed.infrastructure.persistence.dos.ClientChannelDO;
 import io.netty.channel.Channel;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author zed
@@ -22,6 +26,14 @@ public class NamespaceRepositoryImpl implements NamespaceRepository {
     @Override
     public void quitNamespace(Channel channel) {
 
+    }
+
+    @Override
+    public List<Namespace> getNamespaces(String name) {
+//        if (StrUtil.isNotBlank(name)) {
+//            ClientChannelDO.getInstance()
+//        }
+        return null;
     }
 
 

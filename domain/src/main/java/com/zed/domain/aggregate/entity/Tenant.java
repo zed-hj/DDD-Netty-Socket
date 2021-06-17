@@ -1,6 +1,6 @@
 package com.zed.domain.aggregate.entity;
 
-import com.zed.domain.aggregate.NamespaceAggregate;
+import com.zed.domain.aggregate.Namespace;
 import com.zed.domain.aggregate.enums.AccessType;
 import io.netty.channel.Channel;
 import lombok.*;
@@ -21,7 +21,7 @@ public class Tenant {
 
     private TenantId id;
 
-    private NamespaceAggregate.NamespaceId namespaceId;
+    private Namespace.NamespaceId namespaceId;
 
     private Channel channel;
 

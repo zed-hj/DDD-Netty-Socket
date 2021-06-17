@@ -17,6 +17,14 @@
             <groupId>com.zed.application</groupId>
             <artifactId>application</artifactId>
         </dependency>
+
+        <!--   只引入一个SpringMvc模块     -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

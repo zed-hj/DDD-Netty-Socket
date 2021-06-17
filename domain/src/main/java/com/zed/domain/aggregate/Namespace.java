@@ -22,7 +22,7 @@ import java.util.Set;
 @Builder
 @Getter
 @Setter(value = AccessLevel.PRIVATE)
-public class NamespaceAggregate {
+public class Namespace {
 
     private NamespaceId id;
 

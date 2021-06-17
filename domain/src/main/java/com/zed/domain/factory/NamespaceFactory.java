@@ -1,7 +1,7 @@
 package com.zed.domain.factory;
 
 import cn.hutool.core.collection.CollUtil;
-import com.zed.domain.aggregate.NamespaceAggregate;
+import com.zed.domain.aggregate.Namespace;
 import com.zed.domain.aggregate.entity.Tenant;
 import io.netty.channel.Channel;
 import lombok.NonNull;
@@ -23,16 +23,16 @@ public class NamespaceFactory {
      * @param channel     通道
      * @return
      */
-    public static NamespaceAggregate createNamespace(String nameSpaceId,
-                                                     @NonNull String tenantId,
-                                                     @NonNull Channel channel) {
-        return NamespaceAggregate.builder()
-                .id(new NamespaceAggregate.NamespaceId())
+    public static Namespace createNamespace(String nameSpaceId,
+                                            @NonNull String tenantId,
+                                            @NonNull Channel channel) {
+        return Namespace.builder()
+                .id(new Namespace.NamespaceId())
                 .tenants(CollUtil.newHashSet(Tenant
                         .builder()
                         .id(new Tenant.TenantId(tenantId))
                         .channel(channel)
-                        .namespaceId(new NamespaceAggregate.NamespaceId(nameSpaceId))
+                        .namespaceId(new Namespace.NamespaceId(nameSpaceId))
                         .build()))
                 .build();
     }
@@ -43,7 +43,7 @@ public class NamespaceFactory {
                                       @NonNull Channel channel) {
         return Tenant.builder()
                 .id(new Tenant.TenantId(tenantId))
-                .namespaceId(new NamespaceAggregate.NamespaceId(nameSpaceId))
+                .namespaceId(new Namespace.NamespaceId(nameSpaceId))
                 .channel(channel)
                 .build();
     }
