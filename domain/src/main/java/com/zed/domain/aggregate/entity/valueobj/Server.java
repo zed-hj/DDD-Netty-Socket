@@ -1,4 +1,4 @@
-package com.zed.domain.aggregate.entity;
+package com.zed.domain.aggregate.entity.valueobj;
 
 import com.zed.domain.config.SeverChannelInitializerConfig;
 import com.zed.domain.config.SocketConfig;

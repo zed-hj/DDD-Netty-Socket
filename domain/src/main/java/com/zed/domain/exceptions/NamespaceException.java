@@ -1,4 +1,4 @@
-package com.zed.domain.exception;
+package com.zed.domain.exceptions;
 
 /**
  * 来自Namespace领域的异常

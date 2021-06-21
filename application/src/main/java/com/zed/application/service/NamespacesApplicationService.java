@@ -1,9 +1,13 @@
 package com.zed.application.service;
 
+import com.zed.application.assembler.NamespaceAssembler;
+import com.zed.application.out.NamespaceDTO;
+import com.zed.domain.aggregate.Namespace;
 import com.zed.domain.repository.NamespaceRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Application是业务流程的封装，不处理业务逻辑
@@ -20,8 +24,12 @@ public class NamespacesApplicationService {
     @Resource
     private NamespaceRepository namespaceRepository;
 
-    public void getNamespaces(String name) {
-        namespaceRepository.getNamespaces(name);
+    @Resource
+    private NamespaceAssembler namespaceAssembler;
+
+    public List<NamespaceDTO> getNamespaces(String name) {
+        List<Namespace> namespaces = namespaceRepository.getNamespaces(name);
+        return namespaceAssembler.domainToDTO(namespaces);
     }
 
 }

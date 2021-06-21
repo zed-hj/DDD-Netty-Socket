@@ -6,43 +6,53 @@
     <title>WebSocket</title>
     <script type="text/javascript">
         var socket;
-		if(!window.WebSocket){
-			window.WebSocket = window.MozWebSocket;
-		}
+        if (!window.WebSocket) {
+            window.WebSocket = window.MozWebSocket;
+        }
 
-		if(window.WebSocket){
-			socket = new WebSocket("ws://localhost:7000?transport=websocket&sid=32137989dd");
-			console.log(socket);
-			socket.onmessage = function(event){
-				var ta = document.getElementById('responseContent');
-				ta.value += event.data + "\r\n";
-			};
+        function guid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0,
+                    v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
 
-			socket.onopen = function(event){
-				var ta = document.getElementById('responseContent');
-				ta.value = "你当前的浏览器支持WebSocket,请进行后续操作\r\n";
-			};
+        if (window.WebSocket) {
+            // socket = new WebSocket("ws://localhost:7000?transport=websocket&sid=" + guid());
+            socket = new WebSocket("ws://localhost:7000?transport=websocket");
+            console.log(socket);
+            socket.onmessage = function (event) {
+                console.log(event);
+                var ta = document.getElementById('responseContent');
+                ta.value += event.data + "\r\n";
+            };
 
-			socket.onclose = function(event){
-				var ta = document.getElementById('responseContent');
-				ta.value = "";
-				ta.value = "WebSocket连接已经关闭\r\n";
-			};
-		}else{
-			alert("您的浏览器不支持WebSocket");
-		}
+            socket.onopen = function (event) {
+                var ta = document.getElementById('responseContent');
+                ta.value = "你当前的浏览器支持WebSocket,请进行后续操作\r\n";
+            };
+
+            socket.onclose = function (event) {
+                var ta = document.getElementById('responseContent');
+                ta.value = "";
+                ta.value = "WebSocket连接已经关闭\r\n";
+            };
+        } else {
+            alert("您的浏览器不支持WebSocket");
+        }
 
 
-		function send(message){
-			if(!window.WebSocket){
-				return;
-			}
-			if(socket.readyState == WebSocket.OPEN){
-				socket.send(message);
-			}else{
-				alert("WebSocket连接没有建立成功！！");
-			}
-		}
+        function send(message) {
+            if (!window.WebSocket) {
+                return;
+            }
+            if (socket.readyState == WebSocket.OPEN) {
+                socket.send(message);
+            } else {
+                alert("WebSocket连接没有建立成功！！");
+            }
+        }
     </script>
 </head>
 <body>

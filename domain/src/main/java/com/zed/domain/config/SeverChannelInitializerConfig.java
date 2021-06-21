@@ -1,5 +1,6 @@
 package com.zed.domain.config;
 
+import com.zed.domain.aggregate.handler.FullHttpRequestHandler;
 import com.zed.domain.aggregate.handler.WebSocketHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -50,7 +51,10 @@ public class SeverChannelInitializerConfig extends ChannelInitializer<Channel> {
          * 来解决大文件或者码流传输过程中可能发生的内存溢出问题。
          */
         pipeline.addLast("http-chunked", new ChunkedWriteHandler());
-        pipeline.addLast("handler", new WebSocketHandler(socketConfig));
+
+        pipeline.addLast("handler", new FullHttpRequestHandler(socketConfig));
+
+        pipeline.addLast(new WebSocketHandler());
 
 //        pipeline.addLast(new TimeEncoderHandler());
 //        pipeline.addLast(new TimeServerHandler());

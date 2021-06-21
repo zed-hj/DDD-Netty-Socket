@@ -1,19 +1,27 @@
 package com.zed.start;
 
-import com.zed.domain.aggregate.entity.Server;
+import cn.hutool.extra.spring.SpringUtil;
+import com.zed.domain.aggregate.entity.valueobj.Server;
 import com.zed.domain.config.SocketConfig;
-import com.zed.infrastructure.persistence.dao.NamespaceRepositoryImpl;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 
 /**
  * 服务启动器
  *
  * @author zed
  */
+@SpringBootApplication(scanBasePackages = "com.zed")
+@Import(SpringUtil.class)
 public class Start {
 
     public static void main(String[] args) throws Exception {
-        new Server(new SocketConfig(new NamespaceRepositoryImpl()))
-                .run();
+
+        SpringApplication.run(Start.class);
+
+        new Server(new SocketConfig()).run();
+
     }
 
 }

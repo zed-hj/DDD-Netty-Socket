@@ -15,7 +15,10 @@
  */
 package com.zed.domain.config;
 
+import cn.hutool.extra.spring.SpringUtil;
+import com.zed.domain.repository.ClientBoxRepository;
 import com.zed.domain.repository.NamespaceRepository;
+import lombok.Data;
 
 /**
  * TCP socket configuration contains configuration for main server channel
@@ -23,9 +26,12 @@ import com.zed.domain.repository.NamespaceRepository;
  *
  * @see java.net.SocketOptions
  */
+@Data
 public class SocketConfig {
 
     private boolean tcpNoDelay = true;
+
+    private boolean isSSL = false;
 
     private int tcpSendBufferSize = -1;
 
@@ -39,17 +45,6 @@ public class SocketConfig {
 
     private int acceptBackLog = 1024;
 
-    /**
-     * 命名空间仓库,抽象成接口支持集群模式的存储
-     */
-    private NamespaceRepository namespaceRepository;
-
-    /**
-     * 默认命名空间仓库,
-     */
-    public static NamespaceRepository DEFAULT_NAMESPACE_REPOSITORY;
-
-
     private static int DEFAULT_PORT = 7000;
     /**
      * 运行端口
@@ -57,89 +52,14 @@ public class SocketConfig {
     private int port;
 
     public SocketConfig() {
-        this(DEFAULT_NAMESPACE_REPOSITORY);
+        this.port = DEFAULT_PORT;
     }
-
-    public SocketConfig(NamespaceRepository namespaceRepository) {
-        this(DEFAULT_PORT, namespaceRepository);
-    }
-
-    public SocketConfig(Integer port, NamespaceRepository namespaceRepository) {
-        this.port = port;
-        this.namespaceRepository = namespaceRepository;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
 
     public NamespaceRepository getNamespaceRepository() {
-        return namespaceRepository;
+        return SpringUtil.getBean(NamespaceRepository.class);
     }
 
-    public void setNamespaceRepository(NamespaceRepository namespaceRepository) {
-        this.namespaceRepository = namespaceRepository;
+    public ClientBoxRepository getClientBoxRepository() {
+        return SpringUtil.getBean(ClientBoxRepository.class);
     }
-
-    public boolean isTcpNoDelay() {
-        return tcpNoDelay;
-    }
-
-    public void setTcpNoDelay(boolean tcpNoDelay) {
-        this.tcpNoDelay = tcpNoDelay;
-    }
-
-    public int getTcpSendBufferSize() {
-        return tcpSendBufferSize;
-    }
-
-    public void setTcpSendBufferSize(int tcpSendBufferSize) {
-        this.tcpSendBufferSize = tcpSendBufferSize;
-    }
-
-    public int getTcpReceiveBufferSize() {
-        return tcpReceiveBufferSize;
-    }
-
-    public void setTcpReceiveBufferSize(int tcpReceiveBufferSize) {
-        this.tcpReceiveBufferSize = tcpReceiveBufferSize;
-    }
-
-    public boolean isTcpKeepAlive() {
-        return tcpKeepAlive;
-    }
-
-    public void setTcpKeepAlive(boolean tcpKeepAlive) {
-        this.tcpKeepAlive = tcpKeepAlive;
-    }
-
-    public int getSoLinger() {
-        return soLinger;
-    }
-
-    public void setSoLinger(int soLinger) {
-        this.soLinger = soLinger;
-    }
-
-    public boolean isReuseAddress() {
-        return reuseAddress;
-    }
-
-    public void setReuseAddress(boolean reuseAddress) {
-        this.reuseAddress = reuseAddress;
-    }
-
-    public int getAcceptBackLog() {
-        return acceptBackLog;
-    }
-
-    public void setAcceptBackLog(int acceptBackLog) {
-        this.acceptBackLog = acceptBackLog;
-    }
-
 }

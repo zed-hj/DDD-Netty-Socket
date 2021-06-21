@@ -2,8 +2,8 @@ package com.zed.domain.aggregate;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import com.zed.domain.aggregate.entity.Tenant;
-import com.zed.domain.exception.NamespaceException;
+import com.zed.domain.constants.NamespaceConstant;
+import com.zed.domain.exceptions.NamespaceException;
 import lombok.*;
 
 import java.util.Objects;
@@ -26,11 +26,11 @@ public class Namespace {
 
     private NamespaceId id;
 
-    private Set<Tenant> tenants;
+    private Set<Client> clients;
 
     private void checkAtLeastOneTenant() {
-        if (CollUtil.isEmpty(tenants)) {
-            throw new NamespaceException("该NameSpace不存在租户");
+        if (CollUtil.isEmpty(clients)) {
+            throw new NamespaceException("该NameSpace不存在客户端");
         }
     }
 
@@ -40,7 +40,7 @@ public class Namespace {
             /**
              * 广播通知
              */
-            this.tenants.stream().forEach(el -> {
+            this.clients.stream().forEach(el -> {
                 el.getChannel().writeAndFlush(msg);
             });
         }
@@ -51,11 +51,6 @@ public class Namespace {
     @Getter
     public static class NamespaceId {
 
-        /**
-         * 默认的命名空间
-         */
-        private final static String DEFAULT_NAMESPACE = "DEFAULT_NAMESPACE";
-
         private String id;
 
 
@@ -63,14 +58,14 @@ public class Namespace {
          * 如果为空则视为加入默认的房间去
          */
         public NamespaceId() {
-            this(DEFAULT_NAMESPACE);
+            this(NamespaceConstant.DEFAULT_NAMESPACE);
         }
 
         public NamespaceId(String id) {
             if (StrUtil.isNotBlank(id)) {
                 this.id = id;
             }
-            this.id = DEFAULT_NAMESPACE;
+            this.id = NamespaceConstant.DEFAULT_NAMESPACE;
         }
 
         @Override
