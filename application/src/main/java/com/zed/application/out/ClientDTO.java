@@ -6,7 +6,7 @@ import lombok.Data;
  * @author Zed
  */
 @Data
-public class TenantDTO {
+public class ClientDTO {
 
     private String id;
 

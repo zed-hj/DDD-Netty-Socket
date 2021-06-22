@@ -1,11 +1,13 @@
 package com.zed.domain.aggregate.entity.valueobj;
 
+import cn.hutool.core.collection.CollUtil;
 import com.zed.domain.constants.NamespaceConstant;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.QueryStringDecoder;
 import lombok.Getter;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -100,7 +102,8 @@ public class ClientHeader {
 
     private Optional<String> filterUriParams(String key) {
         QueryStringDecoder queryDecoder = new QueryStringDecoder(request.uri());
-        return queryDecoder.parameters().get(key).stream().findFirst();
+        List<String> results = queryDecoder.parameters().get(key);
+        return CollUtil.isNotEmpty(results) ? results.stream().findFirst() : Optional.empty();
     }
 
     /**

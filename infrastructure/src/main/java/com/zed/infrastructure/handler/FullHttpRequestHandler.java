@@ -1,12 +1,12 @@
-package com.zed.domain.aggregate.handler;
+package com.zed.infrastructure.handler;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.extra.spring.SpringUtil;
 import com.zed.domain.aggregate.enums.Attributes;
 import com.zed.domain.aggregate.enums.Transport;
-import com.zed.domain.config.SocketConfig;
 import com.zed.domain.factory.ClientFactory;
-import com.zed.domain.service.ServerService;
+import com.zed.domain.service.ClientService;
+import com.zed.infrastructure.config.SocketConfig;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.FullHttpRequest;
@@ -30,11 +30,11 @@ public class FullHttpRequestHandler extends ChannelInboundHandlerAdapter {
 
     private WebSocketServerHandshaker handShaker;
 
-    private ServerService serverService;
+    private ClientService clientService;
 
     public FullHttpRequestHandler(SocketConfig socketConfig) {
         this.socketConfig = socketConfig;
-        this.serverService = SpringUtil.getBean(ServerService.class);
+        this.clientService = SpringUtil.getBean(ClientService.class);
     }
 
     private String getWebSocketLocation(HttpRequest req) {
@@ -78,9 +78,9 @@ public class FullHttpRequestHandler extends ChannelInboundHandlerAdapter {
                 try {
                     handShake(ctx, (FullHttpRequest) msg);
                     if (CollUtil.isNotEmpty(sids)) {
-                        serverService.connects(ClientFactory.createClient(sids.get(0), req, ctx.channel()));
+                        clientService.connects(ClientFactory.createClient(sids.get(0), req, ctx.channel()));
                     } else {
-                        serverService.connects(ClientFactory.createClient(null, req, ctx.channel()));
+                        clientService.connects(ClientFactory.createClient(null, req, ctx.channel()));
                     }
                 } finally {
                     req.release();

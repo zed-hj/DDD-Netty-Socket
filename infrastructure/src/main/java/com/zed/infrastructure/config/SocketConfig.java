@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zed.domain.config;
+package com.zed.infrastructure.config;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.zed.domain.repository.ClientBoxRepository;

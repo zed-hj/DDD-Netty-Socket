@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * 系统常量
  *
- * @author 510mt
+ * @author zed
  */
 public interface Constant {
 

@@ -1,7 +1,7 @@
-package com.zed.domain.aggregate.entity.valueobj;
+package com.zed.infrastructure;
 
-import com.zed.domain.config.SeverChannelInitializerConfig;
-import com.zed.domain.config.SocketConfig;
+import com.zed.infrastructure.config.SeverChannelInitializerConfig;
+import com.zed.infrastructure.config.SocketConfig;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;

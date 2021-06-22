@@ -34,7 +34,12 @@ public class ClientBoxRepositoryImpl implements ClientBoxRepository {
 
     @Override
     public void disconnect(Client client) {
-        clients.remove(client.getChannel());
-        clients.remove(client.getId());
+        Channel channel = client.getChannel();
+        try {
+            channel.close();
+        } finally {
+            clients.remove(channel);
+            clients.remove(client.getId().getId());
+        }
     }
 }

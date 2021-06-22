@@ -9,6 +9,6 @@ public class NamespaceDTO {
 
     private String name;
 
-    private List<TenantDTO> tenants;
+    private List<ClientDTO> clients;
 
 }

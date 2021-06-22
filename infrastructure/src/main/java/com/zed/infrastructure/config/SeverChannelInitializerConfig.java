@@ -1,7 +1,7 @@
-package com.zed.domain.config;
+package com.zed.infrastructure.config;
 
-import com.zed.domain.aggregate.handler.FullHttpRequestHandler;
-import com.zed.domain.aggregate.handler.WebSocketHandler;
+import com.zed.infrastructure.handler.FullHttpRequestHandler;
+import com.zed.infrastructure.handler.WebSocketHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
@@ -52,8 +52,14 @@ public class SeverChannelInitializerConfig extends ChannelInitializer<Channel> {
          */
         pipeline.addLast("http-chunked", new ChunkedWriteHandler());
 
+        /**
+         * 首次握手
+         */
         pipeline.addLast("handler", new FullHttpRequestHandler(socketConfig));
 
+        /**
+         * 消息处理
+         */
         pipeline.addLast(new WebSocketHandler());
 
 //        pipeline.addLast(new TimeEncoderHandler());

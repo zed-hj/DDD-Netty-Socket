@@ -1,6 +1,7 @@
 package com.zed.application.assembler;
 
-import com.zed.application.out.TenantDTO;
+import com.zed.application.out.ClientDTO;
+import com.zed.domain.aggregate.Client;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -13,14 +14,14 @@ import java.util.UUID;
  * @author Zed
  */
 @Mapper
-public interface TenantAssembler {
+public interface ClientAssembler {
 
-    TenantAssembler INSTANCE = Mappers.getMapper(TenantAssembler.class);
+    ClientAssembler INSTANCE = Mappers.getMapper(ClientAssembler.class);
 
     @Mappings({
-            @Mapping(source = "tenant.id.id", target = "id", qualifiedByName = "uuidToString"),
+            @Mapping(source = "client.id.id", target = "id", qualifiedByName = "uuidToString"),
     })
-    TenantDTO domainToDTO(Tenant tenant);
+    ClientDTO domainToDTO(Client client);
 
     @Named("uuidToString")
     default public String uuidToString(UUID uuid) {

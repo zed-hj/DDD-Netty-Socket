@@ -1,8 +1,8 @@
 package com.zed.start;
 
 import cn.hutool.extra.spring.SpringUtil;
-import com.zed.domain.aggregate.entity.valueobj.Server;
-import com.zed.domain.config.SocketConfig;
+import com.zed.infrastructure.Server;
+import com.zed.infrastructure.config.SocketConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;

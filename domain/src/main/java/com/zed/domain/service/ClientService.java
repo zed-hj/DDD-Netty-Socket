@@ -6,16 +6,18 @@ import com.zed.domain.listener.ConnectListener;
 import com.zed.domain.listener.DisconnectListener;
 import com.zed.domain.repository.ClientBoxRepository;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.UUID;
 
 /**
- * 服务器领域服务
+ * 客户端领域服务
  */
-@Resource
-public class ServerService {
+@Service
+public class ClientService {
 
     @Resource
     private List<ConnectListener> connectListeners;
@@ -50,7 +52,25 @@ public class ServerService {
      * @param client
      */
     public void disconnect(Client client) {
-        disconnectListeners.stream().forEach(el -> el.disconnect(client));
+        disconnectListeners.stream().forEach(el -> {
+            if (client != null) {
+                el.disconnect(client);
+            }
+        });
+    }
+
+    /**
+     * 根据通道处理程序上下文关闭连接事件
+     *
+     * @param ctx
+     */
+    public void disconnect(ChannelHandlerContext ctx) {
+        Client client = get(ctx.channel());
+        disconnectListeners.stream().forEach(el -> {
+            if (client != null) {
+                el.disconnect(client);
+            }
+        });
     }
 
 }

@@ -18,9 +18,9 @@ public class NamespaceAssemblerImpl implements NamespaceAssembler {
         return namespaces.stream().map(el -> {
             NamespaceDTO dto = new NamespaceDTO();
             dto.setName(el.getId().getId());
-            dto.setTenants(el.getTenants()
+            dto.setClients(el.getClients()
                     .stream()
-                    .map(TenantAssembler.INSTANCE::domainToDTO)
+                    .map(ClientAssembler.INSTANCE::domainToDTO)
                     .collect(Collectors.toList()));
             return dto;
         }).collect(Collectors.toList());

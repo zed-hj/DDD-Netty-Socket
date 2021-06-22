@@ -22,7 +22,7 @@ public enum ClientBoxDO {
     private final Map<Channel, Client> channelClients = new ConcurrentHashMap<>();
 
     public void addClient(Client client) {
-        uuidClients.put(client.getId(), client);
+        uuidClients.put(client.getId().getId(), client);
     }
 
     public void remove(UUID sessionId) {
