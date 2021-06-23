@@ -1,6 +1,7 @@
 package com.zed.application.service;
 
 import com.zed.application.assembler.NamespaceAssembler;
+import com.zed.application.in.event.NotifyNamespaceCommand;
 import com.zed.application.out.NamespaceDTO;
 import com.zed.domain.aggregate.Namespace;
 import com.zed.domain.repository.NamespaceRepository;
@@ -30,6 +31,13 @@ public class NamespacesApplicationService {
     public List<NamespaceDTO> getNamespaces(String name) {
         List<Namespace> namespaces = namespaceRepository.getNamespaces(name);
         return namespaceAssembler.domainToDTO(namespaces);
+    }
+
+    public void notifyNamespace(NotifyNamespaceCommand command) {
+        List<Namespace> namespaces = namespaceRepository.getNamespaces(command.getNamespace());
+        namespaces.forEach(el -> {
+            el.broadcast(command.getValue());
+        });
     }
 
 }

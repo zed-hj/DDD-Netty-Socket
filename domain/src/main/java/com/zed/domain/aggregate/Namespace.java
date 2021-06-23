@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.zed.domain.constants.NamespaceConstant;
 import com.zed.domain.exceptions.NamespaceException;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import lombok.*;
 
 import java.util.Objects;
@@ -41,7 +42,7 @@ public class Namespace {
              * 广播通知
              */
             this.clients.stream().forEach(el -> {
-                el.getChannel().writeAndFlush(msg);
+                el.getChannel().writeAndFlush(new TextWebSocketFrame(msg));
             });
         }
 

@@ -1,11 +1,10 @@
 package com.zed.adapter.web;
 
+import com.zed.application.in.event.NotifyNamespaceCommand;
 import com.zed.application.out.NamespaceDTO;
 import com.zed.application.service.NamespacesApplicationService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -25,6 +24,12 @@ public class NamespacesController {
     @GetMapping("/namespaces")
     public ResponseEntity<List<NamespaceDTO>> getNamespaces(String name) {
         return ResponseEntity.ok(namespacesApplicationService.getNamespaces(name));
+    }
+
+    @PostMapping("/namespaces")
+    public ResponseEntity<Boolean> notifyNamespace(@RequestBody NotifyNamespaceCommand command) {
+        namespacesApplicationService.notifyNamespace(command);
+        return ResponseEntity.ok(Boolean.TRUE);
     }
 
 }
