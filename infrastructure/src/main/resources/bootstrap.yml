@@ -15,3 +15,10 @@ server:
     encoding:
       charset: UTF-8
       force: true
+
+disruptor:
+  ringbuffer:
+    bufferSize: 2048
+    consumers: 14
+
+

@@ -1,8 +1,11 @@
-package com.zed.domain.exceptions;
+package com.zed.infrastructure.exceptions;
 
 
-import com.zed.domain.result.IResultCode;
-import com.zed.domain.result.SystemResultCode;
+
+
+import com.zed.domain.exceptions.ExceptionMessage;
+import com.zed.infrastructure.result.IResultCode;
+import com.zed.infrastructure.result.SystemResultCode;
 
 import java.text.MessageFormat;
 

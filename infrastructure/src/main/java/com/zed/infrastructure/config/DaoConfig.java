@@ -20,7 +20,6 @@ public class DaoConfig {
     @Bean
     @ConditionalOnMissingBean
     public NamespaceRepository namespaceRepository() {
-
         return new NamespaceRepositoryImpl();
     }
 

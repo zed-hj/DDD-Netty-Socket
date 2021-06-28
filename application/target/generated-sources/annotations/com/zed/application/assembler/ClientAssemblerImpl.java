@@ -8,7 +8,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-06-22T20:07:39+0800",
+    date = "2021-06-28T04:42:02+0800",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_241 (Oracle Corporation)"
 )
 public class ClientAssemblerImpl implements ClientAssembler {

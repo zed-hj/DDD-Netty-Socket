@@ -5,6 +5,7 @@ import com.zed.domain.repository.ClientBoxRepository;
 import com.zed.infrastructure.persistence.dos.ClientBoxDO;
 import io.netty.channel.Channel;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -24,6 +25,11 @@ public class ClientBoxRepositoryImpl implements ClientBoxRepository {
     @Override
     public Client get(UUID uuid) {
         return clients.get(uuid);
+    }
+
+    @Override
+    public List<Client> getAll() {
+        return clients.getAll();
     }
 
     @Override

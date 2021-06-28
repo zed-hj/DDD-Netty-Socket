@@ -6,6 +6,7 @@ import com.zed.domain.listener.ConnectListener;
 import com.zed.domain.listener.DisconnectListener;
 import io.netty.channel.Channel;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -18,5 +19,7 @@ public interface ClientBoxRepository extends ConnectListener, DisconnectListener
     Client get(Channel channel);
 
     Client get(UUID uuid);
+
+    List<Client> getAll();
 
 }

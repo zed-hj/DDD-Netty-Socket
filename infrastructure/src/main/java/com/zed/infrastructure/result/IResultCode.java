@@ -1,4 +1,4 @@
-package com.zed.domain.result;
+package com.zed.infrastructure.result;
 
 import java.io.Serializable;
 

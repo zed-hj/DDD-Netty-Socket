@@ -1,7 +1,9 @@
 package com.zed.infrastructure.config;
 
 import com.zed.infrastructure.handler.FullHttpRequestHandler;
+import com.zed.infrastructure.handler.InPacketHandler;
 import com.zed.infrastructure.handler.WebSocketHandler;
+import com.zed.infrastructure.protocol.JacksonJsonSupport;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
@@ -61,6 +63,7 @@ public class SeverChannelInitializerConfig extends ChannelInitializer<Channel> {
          * 消息处理
          */
         pipeline.addLast(new WebSocketHandler());
+        pipeline.addLast(new InPacketHandler(new JacksonJsonSupport()));
 
 //        pipeline.addLast(new TimeEncoderHandler());
 //        pipeline.addLast(new TimeServerHandler());

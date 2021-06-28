@@ -6,6 +6,7 @@ import com.zed.domain.repository.ClientBoxRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -30,10 +31,16 @@ public class ClientApplicationService {
         ids.stream().forEach(el -> {
             Client client = clientBoxRepository
                     .get(el);
-            if(client != null){
+            if (client != null) {
                 client.notifyMsg(command.getValue());
             }
         });
+    }
+
+    public void notifyAllClient(String value) {
+        List<Client> all = clientBoxRepository.getAll();
+        all.parallelStream()
+                .forEach(el -> el.notifyMsg(value));
     }
 
 }

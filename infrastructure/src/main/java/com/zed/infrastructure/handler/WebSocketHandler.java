@@ -4,6 +4,7 @@ import cn.hutool.extra.spring.SpringUtil;
 import com.zed.domain.aggregate.Client;
 import com.zed.domain.repository.ClientBoxRepository;
 import com.zed.domain.service.ClientService;
+import com.zed.infrastructure.protocol.PacketsMessage;
 import io.netty.buffer.ByteBufHolder;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -97,8 +98,11 @@ public class WebSocketHandler extends ChannelInboundHandlerAdapter {
                 /**
                  * 处理消息
                  */
-//                ctx.pipeline().fireChannelRead(new PacketsMessage(client, frame.content(), Transport.WEBSOCKET));
-//                frame.release();
+                ctx.pipeline().fireChannelRead(new PacketsMessage(ctx.channel(),
+                        client,
+                        byteBufHolderFrame.content()));
+
+                byteBufHolderFrame.release();
             }
 
         } else {

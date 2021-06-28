@@ -1,9 +1,8 @@
-package com.zed.domain.result;
+package com.zed.infrastructure.result;
 
 import com.zed.domain.constants.Constant;
-import com.zed.domain.exceptions.BusinessException;
+import com.zed.infrastructure.exceptions.BusinessException;
 import lombok.*;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ObjectUtils;
 

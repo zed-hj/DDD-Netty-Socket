@@ -3,9 +3,11 @@ package com.zed.infrastructure.persistence.dos;
 import com.zed.domain.aggregate.Client;
 import io.netty.channel.Channel;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 /**
  * 客户端盒子
@@ -23,6 +25,12 @@ public enum ClientBoxDO {
 
     public void addClient(Client client) {
         uuidClients.put(client.getId().getId(), client);
+    }
+
+    public List<Client> getAll() {
+        return uuidClients.values()
+                .stream()
+                .collect(Collectors.toList());
     }
 
     public void remove(UUID sessionId) {

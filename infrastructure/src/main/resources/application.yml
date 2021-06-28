@@ -1,0 +1,8 @@
+netty:
+  kafka:
+    enabled: true
+
+disruptor:
+  ringbuffer:
+    bufferSize: 2048
+    consumers: 10
