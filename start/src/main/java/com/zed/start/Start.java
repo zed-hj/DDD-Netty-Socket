@@ -4,11 +4,7 @@ import cn.hutool.extra.spring.SpringUtil;
 import com.zed.infrastructure.Server;
 import com.zed.infrastructure.config.SocketConfig;
 import com.zed.infrastructure.disruptor.MessageConsumer;
-import com.zed.infrastructure.disruptor.RingBufferProperties;
-import com.zed.infrastructure.props.AsyncProperties;
-import com.zed.infrastructure.props.NettyKafkaProperties;
-import com.zed.infrastructure.props.NettyProperties;
-import com.zed.infrastructure.props.NettyRocketMQProperties;
+import com.zed.infrastructure.props.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +17,7 @@ import org.springframework.context.annotation.Import;
  * @author zed
  */
 @SpringBootApplication(scanBasePackages = "com.zed")
-@EnableConfigurationProperties(value = {RingBufferProperties.class, AsyncProperties.class, NettyProperties.class,
+@EnableConfigurationProperties(value = {RingBufferProperties.class, DisruptorAsyncProperties.class, NettyProperties.class,
         NettyKafkaProperties.class,
         NettyRocketMQProperties.class})
 @Import(SpringUtil.class)
@@ -34,7 +30,7 @@ public class Start {
 
         new Thread(new Runnable() {
             public void run() {
-                while (true){
+                while (true) {
                     try {
                         Thread.sleep(5000);
                     } catch (InterruptedException e) {

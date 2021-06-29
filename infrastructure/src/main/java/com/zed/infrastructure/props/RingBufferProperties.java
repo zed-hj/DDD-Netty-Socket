@@ -1,4 +1,4 @@
-package com.zed.infrastructure.disruptor;
+package com.zed.infrastructure.props;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

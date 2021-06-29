@@ -28,7 +28,6 @@
     <dependencies>
 
 
-
         <dependency>
             <groupId>com.zed.domain</groupId>
             <artifactId>domain</artifactId>
@@ -55,6 +54,12 @@
             <groupId>com.zed.protocol</groupId>
             <artifactId>protocol</artifactId>
             <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <!--spring-kafka-->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
         </dependency>
 
     </dependencies>

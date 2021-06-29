@@ -1,6 +1,6 @@
 package com.zed.infrastructure.config;
 
-import com.zed.infrastructure.props.AsyncProperties;
+import com.zed.infrastructure.props.DisruptorAsyncProperties;
 import lombok.AllArgsConstructor;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.aop.interceptor.SimpleAsyncUncaughtExceptionHandler;
@@ -23,16 +23,16 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 public class ExecutorConfig extends AsyncConfigurerSupport {
 
-    private AsyncProperties asyncProperties;
+    private DisruptorAsyncProperties disruptorAsyncProperties;
 
     @Override
     @Bean(name = "disruptorTaskExecutor")
     public Executor getAsyncExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(asyncProperties.getCorePoolSize());
-        executor.setMaxPoolSize(asyncProperties.getMaxPoolSize());
-        executor.setQueueCapacity(asyncProperties.getQueueCapacity());
-        executor.setKeepAliveSeconds(asyncProperties.getKeepAliveSeconds());
+        executor.setCorePoolSize(disruptorAsyncProperties.getCorePoolSize());
+        executor.setMaxPoolSize(disruptorAsyncProperties.getMaxPoolSize());
+        executor.setQueueCapacity(disruptorAsyncProperties.getQueueCapacity());
+        executor.setKeepAliveSeconds(disruptorAsyncProperties.getKeepAliveSeconds());
         executor.setThreadNamePrefix("disruptor-executor-");
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         executor.initialize();

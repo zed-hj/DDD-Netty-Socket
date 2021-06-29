@@ -1,4 +1,4 @@
-package com.zed.infrastructure.disruptor;
+package com.zed.infrastructure.disruptor.defaults;
 
 import com.lmax.disruptor.ExceptionHandler;
 import lombok.extern.slf4j.Slf4j;

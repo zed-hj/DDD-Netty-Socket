@@ -15,9 +15,10 @@
  */
 package com.zed.infrastructure.handler;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.zed.domain.aggregate.Client;
-import com.zed.infrastructure.disruptor.DisruptorFactory;
-import com.zed.infrastructure.disruptor.MessageConsumer;
+import com.zed.infrastructure.disruptor.DisruptorTemplate;
+import com.zed.infrastructure.disruptor.TransportDisruptorTemplate;
 import com.zed.infrastructure.protocol.JsonSupport;
 import com.zed.infrastructure.protocol.PacketsMessage;
 import com.zed.protocol.TransportDTO;
@@ -31,8 +32,11 @@ public class InPacketHandler extends SimpleChannelInboundHandler<PacketsMessage>
 
     private JsonSupport jsonSupport;
 
+    private DisruptorTemplate<TransportDTO> disruptorTemplate;
+
     public InPacketHandler(JsonSupport jsonSupport) {
         this.jsonSupport = jsonSupport;
+        this.disruptorTemplate = SpringUtil.getBean(TransportDisruptorTemplate.class);
     }
 
     @Override
@@ -50,14 +54,26 @@ public class InPacketHandler extends SimpleChannelInboundHandler<PacketsMessage>
          */
 
         TransportDTO transportDTO = this.jsonSupport.readValue(byteBuf, TransportDTO.class);
-        /**
-         * 根据命名空间去分配生产者
-         */
         String namespace = client.getClientHeader().getNamespace();
-        transportDTO.setNamespace(namespace);
-        transportDTO.setSessionId(client.getId().getId().toString());
 
-        DisruptorFactory.getProducer(namespace).producer(transportDTO);
+        disruptorTemplate.publishEvent(el -> {
+            el.setId(transportDTO.getId());
+            el.setSessionId(client.getId().getId().toString());
+            el.setNamespace(namespace);
+            el.setType(transportDTO.getType());
+            el.setData(transportDTO.getData());
+            el.setTarget(transportDTO.getTarget());
+            el.setEvent(transportDTO.getEvent());
+        });
+
+//        /**
+//         * 根据命名空间去分配生产者
+//         */
+//        String namespace = client.getClientHeader().getNamespace();
+//        transportDTO.setNamespace(namespace);
+//        transportDTO.setSessionId(client.getId().getId().toString());
+//
+//        DisruptorFactory.getProducer(namespace).producer(transportDTO);
 
     }
 

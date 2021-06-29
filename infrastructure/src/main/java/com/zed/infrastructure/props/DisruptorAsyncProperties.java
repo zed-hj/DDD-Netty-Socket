@@ -10,15 +10,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Data
 @ConfigurationProperties("disruptor.async")
-public class AsyncProperties {
+public class DisruptorAsyncProperties {
     /**
      * 异步核心数,默认: 2
      */
-    private int corePoolSize = 100;
+    private int corePoolSize = 2;
     /**
      * 异步最大线程数，默认：50
      */
-    private int maxPoolSize = 500;
+    private int maxPoolSize = 50;
     /**
      * 队列容量，默认：10000
      */

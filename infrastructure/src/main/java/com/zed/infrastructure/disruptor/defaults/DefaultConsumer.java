@@ -1,7 +1,8 @@
-package com.zed.infrastructure.disruptor;
+package com.zed.infrastructure.disruptor.defaults;
 
 import cn.hutool.extra.spring.SpringUtil;
 import com.zed.domain.listener.DataListener;
+import com.zed.infrastructure.disruptor.MessageConsumer;
 import com.zed.protocol.TransportDTO;
 import lombok.extern.slf4j.Slf4j;
 
