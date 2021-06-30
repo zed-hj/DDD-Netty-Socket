@@ -15,9 +15,6 @@
  */
 package com.zed.infrastructure.config;
 
-import cn.hutool.extra.spring.SpringUtil;
-import com.zed.domain.repository.ClientBoxRepository;
-import com.zed.domain.repository.NamespaceRepository;
 import lombok.Data;
 
 /**
@@ -53,13 +50,5 @@ public class SocketConfig {
 
     public SocketConfig() {
         this.port = DEFAULT_PORT;
-    }
-
-    public NamespaceRepository getNamespaceRepository() {
-        return SpringUtil.getBean(NamespaceRepository.class);
-    }
-
-    public ClientBoxRepository getClientBoxRepository() {
-        return SpringUtil.getBean(ClientBoxRepository.class);
     }
 }
