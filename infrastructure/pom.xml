@@ -46,9 +46,14 @@
 
         <!-- disruptor -->
         <dependency>
-            <groupId>com.lmax.source</groupId>
+            <groupId>com.lmax</groupId>
             <artifactId>disruptor</artifactId>
         </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>com.lmax.source</groupId>-->
+        <!--            <artifactId>disruptor</artifactId>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>com.zed.protocol</groupId>
