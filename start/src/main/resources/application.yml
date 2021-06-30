@@ -1,6 +1,8 @@
 netty:
   kafka:
     enabled: true
+  rocket:
+    enabled: true
 
 disruptor:
   async:
@@ -9,8 +11,11 @@ disruptor:
     bufferSize: 2048
     consumers: 10
 
+
 ###########【Kafka集群】###########
 spring:
+  application:
+    name: netty-socket
   kafka:
     bootstrap-servers: 127.0.0.1:9092
     ###########【初始化生产者配置】###########
@@ -32,3 +37,9 @@ spring:
       # Kafka提供的序列化和反序列化类
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+########### 【RocketMQ】###########
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: ${spring.application.name}

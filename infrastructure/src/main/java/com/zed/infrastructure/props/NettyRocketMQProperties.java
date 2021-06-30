@@ -16,6 +16,6 @@ public class NettyRocketMQProperties {
 
     public static final String ROCKET_PREFIX = "netty.rocket";
 
-    private boolean enable = false;
+    private boolean enabled = false;
 
 }
